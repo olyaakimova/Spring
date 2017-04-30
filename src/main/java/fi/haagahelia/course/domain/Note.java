@@ -5,7 +5,6 @@ package fi.haagahelia.course.domain;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 
 
@@ -21,28 +25,34 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Note {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long noteId;
+	private Long noteId;
 	private String noteName;
 	private String noteContent;
-	private Date noteCreationDate = new Date();
 	
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="noteId")
-	private User owner;
+	@JoinColumn(name="id")
+	private Category category;
+	//Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	//private String ownerName = authentication.getName();
+	private String ownerName = "owner";
+	//private User owner;
+	
+	
 	public Note(){}
 
-	public Note(String noteName, String noteContent) {
+	public Note(String noteName, String noteContent, Category category) {
 		super();
 		this.noteName = noteName;
 		this.noteContent = noteContent;
+		this.category=category;
 		}
 
-	public long getNoteId() {
+	public Long getNoteId() {
 		return noteId;
 	}
 
-	public void setNoteId(long noteId) {
+	public void setNoteId(Long noteId) {
 		this.noteId = noteId;
 	}
 
@@ -62,11 +72,33 @@ public class Note {
 		this.noteContent = noteContent;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+
+
+
+//	public void setOwnerName(String ownerName) {
+//		this.ownerName = ownerName;
+//	}
+	
+	public String getOwnerName() {
+		return ownerName;
+	}
+
 	@Override
 	public String toString() {
-		return "Note [noteId=" + noteId + ", noteName=" + noteName + ", noteContent=" + noteContent
-				+ ", noteCreationDate=" + noteCreationDate + ", users=" + owner + "]";
+		return "Note [noteId=" + noteId + ", noteName=" + noteName + ", noteContent=" + noteContent + ", category="
+				+ category + ", ownerName=" + ownerName + "]";
 	}
+
+
+	
 
 
 }

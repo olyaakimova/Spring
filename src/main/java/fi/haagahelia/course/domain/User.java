@@ -4,19 +4,15 @@
 package fi.haagahelia.course.domain;
 
 
-	import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 	import javax.persistence.Entity;
 	import javax.persistence.GeneratedValue;
 	import javax.persistence.GenerationType;
 	import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 
 	@Entity
-	public class User {
+	public class User{
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name = "id", nullable = false, updatable = false)
@@ -28,10 +24,10 @@ import javax.persistence.OneToMany;
 		@Column(name = "role", nullable = false)
 		private String role;
 		
-		@OneToMany(cascade = CascadeType.ALL,mappedBy = "note")
-		private List <Note> note;
-		public User() {
+		public User(){
+			
 		}
+		
 		
 		public User(String username, String passwordHash, String role) {
 			super();

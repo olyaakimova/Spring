@@ -14,14 +14,13 @@
 		<tr>
 		    <th>name</th>
 		    <th>content</th>
-		    <th>time</th>
 		    <th>owner</th>
 		</tr>  
     	<tr th:each = "note : ${notes}">
     		<td th:text="${note.noteName}"></td>
     		<td th:text="${note.noteContent}"></td>
-    		<td th:text="${note.noteCreationDate}"></td>
-    		<td th:text="${note.user.username}"></td>
+    		<td th:text="${note.category.name}"></td>
+    		<td th:text="${note.ownerName}"></td>
     	</tr>
      </table>
 </body>

@@ -10,23 +10,29 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
+import fi.haagahelia.course.domain.Category;
+import fi.haagahelia.course.domain.CategoryRepository;
 import fi.haagahelia.course.domain.Note;
 import fi.haagahelia.course.domain.NoteRepository;
 import fi.haagahelia.course.domain.UserRepository;
 import fi.haagahelia.course.domain.User;
 
 @SpringBootApplication
-public class Application extends SpringBootServletInitializer{
+public class NotesApplication extends SpringBootServletInitializer{
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder
+	application) {
+	return application.sources(NotesApplication.class);
+	}
 
-	
 			
-	private static final Logger log = LoggerFactory.getLogger(Application.class);
+	private static final Logger log = LoggerFactory.getLogger(NotesApplication.class);
 	
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(NotesApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner noteApp(NoteRepository Nrepository, UserRepository Urepository){
+	public CommandLineRunner noteApp(NoteRepository Nrepository, UserRepository Urepository,CategoryRepository Crepository){
 		return (args) -> {
 			
 			//adding some primary users
@@ -35,11 +41,17 @@ public class Application extends SpringBootServletInitializer{
 			Urepository.save(user1);
 			Urepository.save(user2);
 			
-			//adding some sample notes
-			//SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+			//add categories
+			Crepository.save(new Category("home"));
+			Crepository.save(new Category("work"));
+			Crepository.save(new Category("studies"));
+			Crepository.save(new Category("other"));
+			Crepository.save(new Category("travelling"));
 			
-			Nrepository.save(new Note("note1","note1 content"));
-			Nrepository.save(new Note("note2","note2 content"));
+			//adding some sample notes
+			
+			Nrepository.save(new Note("note1","note1 content",Crepository.findByName("home").get(0)));
+			Nrepository.save(new Note("note2","note2 content",Crepository.findByName("work").get(0)));
 
 			
 			log.info("fetch all notes");

@@ -3,7 +3,10 @@ package fi.haagahelia.course.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,25 +15,62 @@ import fi.haagahelia.course.domain.Note;
 import fi.haagahelia.course.domain.NoteRepository;
 import fi.haagahelia.course.domain.UserRepository;
 
+@Controller
 public class NoteController {
 	
 	@Autowired
 	private NoteRepository Nrepository;
-	@Autowired
-	private UserRepository Urepository;
+	//@Autowired
+	//private UserRepository Urepository;
 	
+	//login
+	 @RequestMapping(value="/login")
+	    public String login() {	
+	        return "login";
+	    }
 	
 	//show all notes
 	@RequestMapping(value = "/notelist", method=RequestMethod.POST)
 		public String NoteList(Model model){
-		model.addAttribute("books", Nrepository.findAll());
+		model.addAttribute("notes", Nrepository.findAll());
 		return "notelist";
 	}
 	
-	//RESTful to get all books
-	@RequestMapping(value="/books",method = RequestMethod.GET)
+	//RESTful to get all notes
+	@RequestMapping(value="/notes",method = RequestMethod.GET)
 	public @ResponseBody List<Note> noteListRest(){
 		return (List <Note>) Nrepository.findAll();
 	}
+	
+	//RESTful to get a note by id
+	@RequestMapping(value = "/notes/{id}", method = RequestMethod.GET)
+	public @ResponseBody Note findNoteRest(@PathVariable("id") Long noteId){
+		return Nrepository.findOne(noteId);
+	}
+	//add note
+	@RequestMapping(value="/add")
+	public String addNote(Model model){
+		model.addAttribute("note", new Note());
+		//model.addAttribute("user", Urepository.findAll());
+		return "addnote";
+	}
+	
+	//save new note
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String save(Note note){
+		Nrepository.save(note);
+		return "redirect:notelist";
+	}
+	
+	//delete note
+	@PreAuthorize("hasAuthority('OWNER')")
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public String deleteNote(@PathVariable("id") Long noteId, Model model){
+		Nrepository.delete(noteId);
+		return "redirect:../notelist";
+	}
+	
+	
+	
 	
 }
