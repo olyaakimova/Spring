@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.formLogin()
             .loginPage("/login")                       //login-page
             //.failureUrl("/login.html?status=LOGIN_FAILURE") //authentication-failure-url
-            .defaultSuccessUrl("/booklist", false) //default-target-url. set always-use-default-target to `false`
+            .defaultSuccessUrl("/notelist", false) //default-target-url. set always-use-default-target to `false`
             .permitAll()
 			.and()
 			.logout()

@@ -1,3 +1,4 @@
+//Spring CategoryRepository
 package fi.haagahelia.course.domain;
 
 import java.util.List;

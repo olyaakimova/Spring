@@ -30,7 +30,7 @@ public class NoteController {
 	    }
 	
 	//show all notes
-	@RequestMapping(value = "/notelist", method=RequestMethod.POST)
+	@RequestMapping(value = "/notelist", method=RequestMethod.GET)
 		public String NoteList(Model model){
 		model.addAttribute("notes", Nrepository.findAll());
 		return "notelist";

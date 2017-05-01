@@ -38,8 +38,12 @@ public class NotesApplication extends SpringBootServletInitializer{
 			//adding some primary users
 			User user1 = new User("user", "$2a$05$nydhuDIcWXa0c8ItFgUNRO6YwFAQOaFbj6bmU4wptsRrays0ivzG6", "USER");
 			User user2 = new User("admin", "$2a$05$nydhuDIcWXa0c8ItFgUNRO6YwFAQOaFbj6bmU4wptsRrays0ivzG6", "ADMIN");
+			User user3 = new User("owner", "$2a$05$nydhuDIcWXa0c8ItFgUNRO6YwFAQOaFbj6bmU4wptsRrays0ivzG6", "OWNER");
+			
+			
 			Urepository.save(user1);
 			Urepository.save(user2);
+			Urepository.save(user3);
 			
 			//add categories
 			Crepository.save(new Category("home"));

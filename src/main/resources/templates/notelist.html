@@ -6,22 +6,29 @@
      <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1>notes</h1>
+	<h1>Notes</h1>
 	<div class="col-md-4">
 	</div>
 
     <table class="table table-hover">
 		<tr>
-		    <th>name</th>
-		    <th>content</th>
-		    <th>owner</th>
+		    <th>Name</th>
+		    <th>Content</th>
+		    <th>Category</th>
+		    <th>Owner</th>
+		    <th>Date</th>
 		</tr>  
     	<tr th:each = "note : ${notes}">
     		<td th:text="${note.noteName}"></td>
     		<td th:text="${note.noteContent}"></td>
     		<td th:text="${note.category.name}"></td>
     		<td th:text="${note.ownerName}"></td>
+    		<td th:text="${note.noteCreationDate}"></td>
+    		<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-danger" th:href="@{/delete/{id}(id=${note.noteId})}">Delete</a></td>
     	</tr>
      </table>
+     
+     <a class="btn btn-success" href="/add">Add new note</a>
+     
 </body>
 </html>

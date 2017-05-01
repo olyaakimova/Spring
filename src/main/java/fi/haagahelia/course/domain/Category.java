@@ -1,3 +1,4 @@
+// Spring Category class
 package fi.haagahelia.course.domain;
 
 import java.util.List;
