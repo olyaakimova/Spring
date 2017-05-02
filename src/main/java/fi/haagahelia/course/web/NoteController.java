@@ -59,6 +59,24 @@ public class NoteController {
 		return "addnote";
 	}
 	
+	//edit note
+		@PreAuthorize("hasAuthority('OWNER')")
+		@RequestMapping(value="/edit/{id}")
+		public String editNote(@PathVariable("id") Long noteId, Model model){
+	        model.addAttribute("note", Nrepository.findOne(noteId));
+	        model.addAttribute("categories", Crepository.findAll());
+			return "editnote";
+	
+	}
+	
+	//view note
+	@RequestMapping(value = "/viewnote/{id}", method=RequestMethod.GET)
+	public String viewNote(@PathVariable("id") Long noteId, Model model){
+        model.addAttribute("note", Nrepository.findOne(noteId));
+        model.addAttribute("categories", Crepository.findAll());
+		return "viewnote";
+	}
+		
 	//save new note
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(Note note){

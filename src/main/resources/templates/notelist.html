@@ -13,18 +13,18 @@
     <table class="table table-hover">
 		<tr>
 		    <th>Name</th>
-		    <th>Content</th>
 		    <th>Category</th>
 		    <th>Owner</th>
 		    <th>Date</th>
 		</tr>  
     	<tr th:each = "note : ${notes}">
     		<td th:text="${note.noteName}"></td>
-    		<td th:text="${note.noteContent}"></td>
     		<td th:text="${note.category.name}"></td>
     		<td th:text="${note.ownerName}"></td>
     		<td th:text="${note.noteCreationDate}"></td>
     		<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-danger" th:href="@{/delete/{id}(id=${note.noteId})}">Delete</a></td>
+    		<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-warning" th:href="@{/edit/{id}(id=${note.noteId})}">Edit</a></td>
+    		<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-primary" th:href="@{/viewnote/{id}(id=${note.noteId})}">View</a></td>
     	</tr>
      </table>
      

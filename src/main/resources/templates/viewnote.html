@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Notes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1 th:text="${note.noteName}"></h1>
+	<div class="col-md-4">
+	</div>
+    <table class="table table-hover">
+		<tr>
+		    <th>Category</th>
+		    <td th:text="${note.category.name}"></td>
+		</tr>  
+		<tr>
+			<th>Owner</th>
+    		<td th:text="${note.ownerName}"></td>
+		</tr> 
+		
+		<tr>
+			<th>Date</th>
+    		<td th:text="${note.noteCreationDate}"></td>
+		</tr>
+		
+		<tr>
+			<th>Content</th>
+    		<td th:text="${note.noteContent}"></td>
+		</tr>
+		
+		<tr>
+			<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-warning" th:href="@{/edit/{id}(id=${note.noteId})}">Edit</a></td>
+    	</tr>
+     </table>
+
+</body>
+</html>

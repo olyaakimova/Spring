@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Notes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />
+</head>
+<body>
+		<div style="margin-left:30px">
+			<h1>Edit your note</h1>
+		</div>
+		<div>
+			<form class="form-horizontal" style = "width:50%" th:object="${note}" th:action="@{../save}" action="#" method="post">
+	
+				<div  class="form-group">
+				  	<div class="col-sm-10">
+						<input type="hidden" th:field="*{noteId}" class="form-control" />
+					</div>
+				</div>
+				
+				<div  class="form-group">
+				  	<label for="noteName"  class="col-sm-2 control-label">Name</label>
+				  	<div class="col-sm-10">
+						<input type="text" class="form-control" id="noteName" th:field="*{noteName}" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="category" class="col-sm-2 control-label">Category</label>
+					<div class="col-sm-10">
+						<select id="category" th:field="*{category}" class="form-control">
+						<option th:each="category: ${categories}"
+							th:value="${category.categoryId}"
+							th:text="${category.name}">
+						</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+				  	<label for="noteContent"  class="col-sm-2 control-label">Content</label>
+				  	<div class="col-sm-10">
+				  		<textarea class="form-control" rows="20" id="noteContent" th:field="*{noteContent}"></textarea>
+				  		
+					</div>
+				</div>
+				
+				
+				
+				<input type="submit" class="btn btn-success" style="margin-left:20px" value="Save"></input>
+			</form>
+		</div>
+</body>
+</html>
