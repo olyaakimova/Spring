@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import fi.haagahelia.course.domain.CategoryRepository;
 import fi.haagahelia.course.domain.Note;
 import fi.haagahelia.course.domain.NoteRepository;
 import fi.haagahelia.course.domain.UserRepository;
@@ -20,6 +21,8 @@ public class NoteController {
 	
 	@Autowired
 	private NoteRepository Nrepository;
+	@Autowired
+	private CategoryRepository Crepository;
 	//@Autowired
 	//private UserRepository Urepository;
 	
@@ -30,7 +33,7 @@ public class NoteController {
 	    }
 	
 	//show all notes
-	@RequestMapping(value = "/notelist", method=RequestMethod.GET)
+	@RequestMapping(value = {"/notelist","/","/index"}, method=RequestMethod.GET)
 		public String NoteList(Model model){
 		model.addAttribute("notes", Nrepository.findAll());
 		return "notelist";
@@ -52,6 +55,7 @@ public class NoteController {
 	public String addNote(Model model){
 		model.addAttribute("note", new Note());
 		//model.addAttribute("user", Urepository.findAll());
+		model.addAttribute("categories", Crepository.findAll());
 		return "addnote";
 	}
 	
@@ -69,8 +73,5 @@ public class NoteController {
 		Nrepository.delete(noteId);
 		return "redirect:../notelist";
 	}
-	
-	
-	
 	
 }

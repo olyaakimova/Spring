@@ -25,16 +25,16 @@ public class Note {
 	private Date noteCreationDate = new Date();
 	
 	
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name="id")
-	private Category category;
-	
-	
 	//Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	//private String ownerName = authentication.getName();
 	private String ownerName = "owner";
+	
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "categoryId")
+	private Category category;
 
+	
 	public Note(String noteName, String noteContent, Category category) {
 		super();
 		this.noteName = noteName;
@@ -111,7 +111,4 @@ public class Note {
 				+ "]";
 	}
 
-
-
-	
 }

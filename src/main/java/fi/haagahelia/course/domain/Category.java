@@ -14,12 +14,12 @@ import javax.persistence.OneToMany;
 public class Category {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long categoryId;
+	private Long categoryId;
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy =
 			"category")
-			private List<Note> books;
+			private List<Note> notes;
 	
 	public Category(){}
 	
@@ -29,11 +29,11 @@ public class Category {
 	}
 	
 	
-	public long getCategoryId() {
+	public Long getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(long categoryId) {
+	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
 
