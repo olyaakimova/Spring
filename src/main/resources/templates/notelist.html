@@ -6,22 +6,33 @@
      <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1>Notes</h1>
-	<div class="col-md-4">
-	</div>
-
+	<table>
+	<tr>
+	<td><h5 th:inline="text">You are [[${#httpServletRequest.remoteUser}]]</h5></td>
+	<td>	<div class="col-md-4" style="padding-left:30px">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-default"/>
+		</form>
+	</div></td>
+	</tr>
+	</table>
+		<h1>Notes</h1>
     <table class="table table-hover">
 		<tr>
 		    <th>Name</th>
 		    <th>Category</th>
-		    <th>Owner</th>
-		    <th>Date</th>
+		    <th>Created by</th>
+		    <th>Creation Date</th>
+		    <th>Last modified by</th>
+		    <th>Last modification date</th>
 		</tr>  
     	<tr th:each = "note : ${notes}">
     		<td th:text="${note.noteName}"></td>
     		<td th:text="${note.category.name}"></td>
-    		<td th:text="${note.ownerName}"></td>
-    		<td th:text="${note.noteCreationDate}"></td>
+    		<td th:text="${note.createdBy}"></td>
+    		<td th:text="${#dates.format(note.createdDate, 'dd MMM yyyy, HH:mm:ss)}"></td>
+    		<td th:text="${note.lastModifiedBy}"></td>
+    		<td th:text="${#dates.format(note.lastModifiedDate, 'dd MMM yyyy, HH:mm:ss)}"></td>
     		<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-danger" th:href="@{/delete/{id}(id=${note.noteId})}">Delete</a></td>
     		<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-warning" th:href="@{/edit/{id}(id=${note.noteId})}">Edit</a></td>
     		<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-primary" th:href="@{/viewnote/{id}(id=${note.noteId})}">View</a></td>

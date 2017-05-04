@@ -3,12 +3,12 @@
 
 package fi.haagahelia.course.domain;
 
-
 import javax.persistence.Column;
 	import javax.persistence.Entity;
 	import javax.persistence.GeneratedValue;
 	import javax.persistence.GenerationType;
 	import javax.persistence.Id;
+
 
 
 	@Entity
@@ -68,10 +68,12 @@ import javax.persistence.Column;
 			this.role = role;
 		}
 
+
+
 		@Override
 		public String toString() {
 			return "User [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash + ", role=" + role
-					+ "]";
+					 + "]";
 		}
 		
 	}

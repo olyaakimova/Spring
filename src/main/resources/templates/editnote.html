@@ -7,6 +7,17 @@
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />
 </head>
 <body>
+
+	<table>
+	<tr>
+	<td><h5 th:inline="text">You are [[${#httpServletRequest.remoteUser}]]</h5></td>
+	<td>	<div class="col-md-4" style="padding-left:30px">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-default"/>
+		</form>
+	</div></td>
+	</tr>
+	</table>
 		<div style="margin-left:30px">
 			<h1>Edit your note</h1>
 		</div>
