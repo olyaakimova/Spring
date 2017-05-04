@@ -8,10 +8,10 @@
 <body>
 	<table>
 	<tr>
-	<td><h5 th:inline="text">You are [[${#httpServletRequest.remoteUser}]]</h5></td>
+	<td><h5 th:inline="text">Hi [[${#httpServletRequest.remoteUser}]]</h5></td>
 	<td>	<div class="col-md-4" style="padding-left:30px">
 		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-default"/>
+			<input type="submit" value="Sign Out" class="btn btn-danger"/>
 		</form>
 	</div></td>
 	</tr>
@@ -30,12 +30,12 @@
     		<td th:text="${note.noteName}"></td>
     		<td th:text="${note.category.name}"></td>
     		<td th:text="${note.createdBy}"></td>
-    		<td th:text="${#dates.format(note.createdDate, 'dd MMM yyyy, HH:mm:ss)}"></td>
+    		<td th:text="${#dates.format(note.createdDate, 'd MMM yyyy HH:mm:ss')}"></td>
     		<td th:text="${note.lastModifiedBy}"></td>
-    		<td th:text="${#dates.format(note.lastModifiedDate, 'dd MMM yyyy, HH:mm:ss)}"></td>
-    		<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-danger" th:href="@{/delete/{id}(id=${note.noteId})}">Delete</a></td>
-    		<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-warning" th:href="@{/edit/{id}(id=${note.noteId})}">Edit</a></td>
-    		<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-primary" th:href="@{/viewnote/{id}(id=${note.noteId})}">View</a></td>
+    		<td th:text="${#dates.format(note.lastModifiedDate, 'd MMM yyyy HH:mm:ss')}"></td>
+    		<td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${note.noteId})}">Delete</a></td>
+    		<td><a class="btn btn-warning" th:href="@{/edit/{id}(id=${note.noteId})}">Edit</a></td>
+    		<td><a class="btn btn-primary" th:href="@{/viewnote/{id}(id=${note.noteId})}">View</a></td>
     	</tr>
      </table>
      

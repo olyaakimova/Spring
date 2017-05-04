@@ -4,33 +4,29 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fi.haagahelia.course.domain.CategoryRepository;
 import fi.haagahelia.course.domain.Note;
 import fi.haagahelia.course.domain.NoteRepository;
-import fi.haagahelia.course.domain.PermissionRepository;
-import fi.haagahelia.course.domain.UserRepository;
 
 @Controller
+@SessionAttributes("note")
 public class NoteController {
 	
 	@Autowired
 	private NoteRepository Nrepository;
 	@Autowired
 	private CategoryRepository Crepository;
-	@Autowired
-	private UserRepository Urepository;
-	@Autowired
-	private PermissionRepository Prepository;
+
 	
+
 	//login
 	 @RequestMapping(value="/login")
 	    public String login() {	
@@ -61,17 +57,14 @@ public class NoteController {
 		model.addAttribute("note", new Note());
 		//model.addAttribute("user", Urepository.findAll());
 		model.addAttribute("categories", Crepository.findAll());
-		model.addAttribute("permissions",Prepository.findAll());
 		return "addnote";
 	}
 	
 	//edit note
-		@PreAuthorize("hasAuthority('OWNER')")
 		@RequestMapping(value="/edit/{id}")
 		public String editNote(@PathVariable("id") Long noteId, Model model){
 	        model.addAttribute("note", Nrepository.findOne(noteId));
 	        model.addAttribute("categories", Crepository.findAll());
-	        model.addAttribute("permissions",Prepository.findAll());
 			return "editnote";
 	
 	}
@@ -81,7 +74,6 @@ public class NoteController {
 	public String viewNote(@PathVariable("id") Long noteId, Model model){
         model.addAttribute("note", Nrepository.findOne(noteId));
         model.addAttribute("categories", Crepository.findAll());
-        model.addAttribute("permissions",Prepository.findAll());
 		return "viewnote";
 	}
 		

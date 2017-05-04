@@ -9,10 +9,10 @@
 <body>
 <table>
 <tr>
-		<td><h5 th:inline="text">You are [[${#httpServletRequest.remoteUser}]]</h5></td>
+		<td><h5 th:inline="text">[[${#httpServletRequest.remoteUser}]]</h5></td>
 	<td>	<div class="col-md-4" style="padding-left:30px">
 		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-default"/>
+			<input type="submit" value="Sign Out" class="btn btn-danger"/>
 		</form>
 	</div></td>
 	</tr>

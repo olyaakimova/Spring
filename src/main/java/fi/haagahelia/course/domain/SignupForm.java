@@ -11,7 +11,7 @@ public class SignupForm {
 	
 	//username
 	@NotEmpty
-	@Size(min=4,max=30)
+	@Size(min=3,max=30)
 	private String username = "";
 	
 	//password

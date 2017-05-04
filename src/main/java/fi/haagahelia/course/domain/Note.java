@@ -4,24 +4,25 @@
 package fi.haagahelia.course.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Note {
 
 	@Id
@@ -42,8 +43,6 @@ public class Note {
 	@LastModifiedBy 
 	private String lastModifiedBy;
 	
-	@OneToMany(mappedBy ="permission")
-			private List<Permission> permissions;
 	
 	@ManyToOne
 	@JsonIgnore
@@ -132,6 +131,13 @@ public class Note {
 
 	public void setLastModifiedBy(String lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
+	}
+
+	@Override
+	public String toString() {
+		return "Note [noteId=" + noteId + ", noteName=" + noteName + ", noteContent=" + noteContent + ", createdDate="
+				+ createdDate + ", createdBy=" + createdBy + ", lastModifiedDate=" + lastModifiedDate
+				+ ", lastModifiedBy=" + lastModifiedBy + ", category=" + category + "]";
 	}
 
 

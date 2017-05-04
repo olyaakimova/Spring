@@ -14,7 +14,6 @@ import fi.haagahelia.course.domain.Category;
 import fi.haagahelia.course.domain.CategoryRepository;
 import fi.haagahelia.course.domain.Note;
 import fi.haagahelia.course.domain.NoteRepository;
-import fi.haagahelia.course.domain.PermissionRepository;
 import fi.haagahelia.course.domain.UserRepository;
 import fi.haagahelia.course.domain.User;
 
@@ -33,7 +32,7 @@ public class NotesApplication extends SpringBootServletInitializer{
 		SpringApplication.run(NotesApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner noteApp(NoteRepository Nrepository, UserRepository Urepository,CategoryRepository Crepository, PermissionRepository Prepository){
+	public CommandLineRunner noteApp(NoteRepository Nrepository, UserRepository Urepository,CategoryRepository Crepository){
 		return (args) -> {
 			
 			//adding some primary users
@@ -53,14 +52,11 @@ public class NotesApplication extends SpringBootServletInitializer{
 			Crepository.save(new Category("other"));
 			Crepository.save(new Category("travelling"));
 			
-			//adding some sample permissions - added directly from a note creation
-			
-		
 			
 			//adding some sample notes
 			
-			Nrepository.save(new Note("note1","note1 content",Crepository.findByName("home").get(0)));
-			Nrepository.save(new Note("note2","note2 content",Crepository.findByName("work").get(0)));
+			//Nrepository.save(new Note("note1","note1 content",Crepository.findByName("home").get(0)));
+			//Nrepository.save(new Note("note2","note2 content",Crepository.findByName("work").get(0)));
 
 			
 			log.info("fetch all notes");
