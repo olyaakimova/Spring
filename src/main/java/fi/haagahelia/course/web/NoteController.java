@@ -85,7 +85,7 @@ public class NoteController {
 	}
 	
 	//delete note
-	@PreAuthorize("hasAuthority('OWNER')")
+	//@PreAuthorize("hasAuthority('OWNER')")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteNote(@PathVariable("id") Long noteId, Model model){
 		Nrepository.delete(noteId);
