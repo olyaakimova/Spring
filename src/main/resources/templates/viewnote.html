@@ -20,24 +20,29 @@
 	<h1 th:text="${note.noteName}"></h1>
 	<div class="col-md-4">
 	</div>
-		<div class="col-md-4" style="padding:20px 0">
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-default"/>
-		</form>
-	</div>
+		
     <table class="table table-hover">
 		<tr>
 		    <th>Category</th>
 		    <td th:text="${note.category.name}"></td>
 		</tr>  
 		<tr>
-			<th>Owner</th>
-    		<td th:text="${note.ownerName}"></td>
+			<th>Creator</th>
+    		<td th:text="${note.createdBy}"></td>
 		</tr> 
 		
 		<tr>
-			<th>Date</th>
-    		<td th:text="${note.noteCreationDate}"></td>
+			<th>Date of creation</th>
+    		<td th:text="${note.createdDate}"></td>
+		</tr>
+		<tr>
+		<th>Last modified by</th>
+    		<td th:text="${note.lastModifiedBy}"></td>
+		</tr> 
+		
+		<tr>
+			<th>Last modified date</th>
+    		<td th:text="${note.lastModifiedDate}"></td>
 		</tr>
 		
 		<tr>
@@ -46,7 +51,7 @@
 		</tr>
 		
 		<tr>
-			<td sec:authorize="hasAuthority('OWNER')" ><a class="btn btn-warning" th:href="@{/edit/{id}(id=${note.noteId})}">Edit</a></td>
+			<td><a class="btn btn-warning" th:href="@{/edit/{id}(id=${note.noteId})}">Edit</a></td>
     	</tr>
      </table>
 

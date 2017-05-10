@@ -5,6 +5,7 @@ package fi.haagahelia.course.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -29,6 +31,7 @@ public class Note {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long noteId;
 	private String noteName;
+	@Column(name = "noteContent", nullable = true, length = 10000) @Length(max = 10000)
 	private String noteContent;
 	
 	@CreatedDate
